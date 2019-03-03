@@ -9,11 +9,11 @@
 import Foundation
 
 class UserViewModel {
-    var userDateSouce: [User]?
+    var userDateSource: [User]?
     
     func getUserData(_ complition: @escaping () -> ()) {
         ApiManager.shared.getUserData { (users) in
-            self.userDateSouce = users
+            self.userDateSource = users
             complition()
         }
     }

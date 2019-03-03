@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         if segue.identifier == "goToDetails" {
             let detailsVC = segue.destination as! DetailsViewController
             if let indexPath = userTableView.indexPathForSelectedRow {
-                detailsVC.user = userViewModel.userDateSouce?[indexPath.row]
+                detailsVC.user = userViewModel.userDateSource?[indexPath.row]
                 userTableView.deselectRow(at: indexPath, animated: true)
             }
         }
@@ -50,12 +50,12 @@ class ViewController: UIViewController {
 }
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userViewModel.userDateSouce?.count ?? 0
+        return userViewModel.userDateSource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! UserTableViewCell
-        cell.cellViewModel.configureCellData(indexPath, userViewModel.userDateSouce ?? [])
+        cell.cellViewModel.configureCellData(indexPath, userViewModel.userDateSource ?? [])
         cell.reloadCell()
         return cell
     }

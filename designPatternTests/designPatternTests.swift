@@ -19,7 +19,7 @@ class designPatternTests: XCTestCase {
     
     func testGetUserData() {
         userViewModel.getUserData {
-            XCTAssertNil(self.userViewModel.userDateSouce)
+            XCTAssertNil(self.userViewModel.userDateSource)
         }
     }
     
