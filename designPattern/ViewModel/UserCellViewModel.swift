@@ -12,8 +12,8 @@ class UserCellViewModel {
 
     var user: User?
     
-//    func configureCell(_ indexPath: IndexPath) {
-//        user = 
-//    }
+    func configureCellData(_ indexPath: IndexPath, _ userDataSource: [User]) {
+        user = userDataSource[indexPath.row]
+    }
     
 }

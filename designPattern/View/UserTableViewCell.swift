@@ -23,7 +23,7 @@ class UserTableViewCell: UITableViewCell {
         bgView.clipsToBounds = true
     }
     
-    func configureCell() {
+    func reloadCell() {
         userName.text = cellViewModel.user?.email ?? ""
     }
 

@@ -55,8 +55,8 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! UserTableViewCell
-        cell.cellViewModel.user = userViewModel.userDateSouce?[indexPath.row]
-        cell.configureCell()
+        cell.cellViewModel.configureCellData(indexPath, userViewModel.userDateSouce ?? [])
+        cell.reloadCell()
         return cell
     }
     
