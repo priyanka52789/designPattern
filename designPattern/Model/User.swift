@@ -8,41 +8,36 @@
 
 import Foundation
 
-class User {
+struct User : Codable {
+    
     var id: Int?
     var name: String?
     var username: String?
     var email: String?
-    var address: [String:Any]?
+    var address: Address?
     var phone: String?
     var website: String?
-    var company: [String:String]?
-    
-    init() { // designated initialiser
-    }
-    
-    convenience init(data: [String: Any]) {
-        self.init()
-        id = data["id"] as? Int
-        name = data["name"] as? String
-        username = data["username"] as? String
-        email = data["email"] as? String
-        address = data["address"] as? [String:Any]
-        phone = data["phone"] as? String
-        website = data["website"] as? String
-        company = data["company"] as? [String:String]
-        print(address!)
-    }
-    
-    func getCompany() -> String {
-        return "\(company!["name"] ?? ""), \(company!["catchPhrase"] ?? ""), \(company!["bs"] ?? "")"
-    }
-    
-    func getAddress() -> String {
-        return "Street: \(address!["street"] ?? ""), Suite: \(address!["suite"] ?? ""), City: \(address!["city"] ?? ""), Zipcode: \(address!["zipcode"] ?? "")"
-    }
+    var company: Company?
 }
 
+struct Address : Codable {
+    var street: String?
+    var suite: String?
+    var city: String?
+    var zipcode: String?
+    var geo: location?
+}
+
+struct location : Codable {
+    var lat: String?
+    var lng: String?
+}
+
+struct Company : Codable {
+    var name: String?
+    var catchPhrase: String?
+    var bs: String?
+}
 
 //{
 //    "id": 1,

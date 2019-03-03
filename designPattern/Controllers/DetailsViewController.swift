@@ -30,9 +30,9 @@ class DetailsViewController: UIViewController {
         nameLbl.text = "Name: \(user?.name ?? "test name")"
         emailLbl.text = "Email: \(user?.email ?? "test email")"
         phoneLbl.text = "Phone: \(user?.phone ?? "test phone")"
-        companyLbl.text = "Company: \(user?.getCompany() ?? "test company")"
+        companyLbl.text = "Company: \(user?.company?.name ?? "test company")"
         websiteLbl.text = "Website: \(user?.website ?? "test website")"
-        addressLbl.text = "Address: \(user?.getAddress() ?? "test address")"
+        addressLbl.text = "Address: \(user?.address?.street ?? "test address")"
     }
 
     override func didReceiveMemoryWarning() {

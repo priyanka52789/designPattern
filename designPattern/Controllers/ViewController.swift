@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var userTableView: UITableView!
     
-    var userList: [User] = []
+    var userViewModel = UserViewModel()
     let cellIdentifier = "userCell"
     
     override func viewDidLoad() {
@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         userTableView.delegate = self
         userTableView.dataSource = self
         userTableView.separatorStyle = .none
-        loadUserData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,20 +28,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func loadUserData() {
-        for dic in ApiManager.fetchTestUserData() {
-            let user = User(data: dic)
-            userList.append(user)
+    override func viewWillAppear(_ animated: Bool)  {
+        super.viewWillAppear(animated)
+        userViewModel.getUserData {
+            DispatchQueue.main.async {
+                self.userTableView.reloadData()
+            }
         }
-        print(userList.count)
-        userTableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetails" {
             let detailsVC = segue.destination as! DetailsViewController
             if let indexPath = userTableView.indexPathForSelectedRow {
-                detailsVC.user = userList[indexPath.row]
+                detailsVC.user = userViewModel.userDateSouce?[indexPath.row]
                 userTableView.deselectRow(at: indexPath, animated: true)
             }
         }
@@ -51,12 +50,13 @@ class ViewController: UIViewController {
 }
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userList.count
+        return userViewModel.userDateSouce?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! UserTableViewCell
-        cell.userName.text = userList[indexPath.row].email ?? ""
+        cell.cellViewModel.user = userViewModel.userDateSouce?[indexPath.row]
+        cell.configureCell()
         return cell
     }
     
